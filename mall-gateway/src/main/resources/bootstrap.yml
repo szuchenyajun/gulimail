@@ -1,0 +1,9 @@
+#配置 配置中心的地址
+spring:
+  application:
+    name: mall-gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: 120.25.228.87:8848
+        namespace: gateway90cf33b0-87be-4708-aa21-86edd61aac8a

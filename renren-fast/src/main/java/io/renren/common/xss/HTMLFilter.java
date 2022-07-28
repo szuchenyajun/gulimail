@@ -138,7 +138,7 @@ public final class HTMLFilter {
         alwaysMakeTags = true;
     }
 
-    /** Set debug flag to true. Otherwise use default settings. See the default constructor.
+    /** Set debug flag to true. Otherwise, use default settings. See the default constructor.
      *
      * @param debug turn debug on with a true argument
      */
