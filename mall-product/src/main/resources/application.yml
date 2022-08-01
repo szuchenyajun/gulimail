@@ -5,11 +5,24 @@ spring:
     username: root
     password: yajun5548
 
+
+
+  application:
+    name: mall-product
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.25.228.87:8848
+
+
+
 mybatis-plus:
   mapper-locations: classpath:/mapper/**/*.xml
   global-config:
     db-config:
       id-type: auto
+      logic-delete-value: 1  #1表示以删除  全局配置  可以在字段上修改定义
+      logic-not-delete-value: 0
 
 server:
   port: 10000

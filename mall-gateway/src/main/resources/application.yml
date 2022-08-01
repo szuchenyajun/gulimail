@@ -4,9 +4,29 @@ spring:
   cloud:
     gateway:
       routes: # 路由规则
-        - id: baidu_route
-          uri: http://www.baidu.com
+        - id: product_route
+          uri: lb://mall-product  #负载均衡到 xxx服务
           predicates:
-            - Query=url,baidu #参数url=baidu
+            - Path=/api/product/**  #以api/product打头
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+
+        - id: third_party_route
+          uri: lb://mall-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty(?<segment>.*),/$\{segment}
+
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**  #api 全部路由到/renren-fast
+          filters:   #路径重写
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+            - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin # 过滤跨域重复
+
+
+
 server:
   port: 88

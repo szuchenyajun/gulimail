@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: mall-product  #配置中心
+
+  cloud:
+    nacos:
+      config:
+        server-addr: 120.25.228.87:8848
+        namespace: 2e1b5945-1178-4a06-8ebd-0eea8d3f57d3

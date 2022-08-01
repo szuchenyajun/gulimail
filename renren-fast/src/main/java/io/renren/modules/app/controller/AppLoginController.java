@@ -16,6 +16,7 @@ import io.renren.modules.app.service.UserService;
 import io.renren.modules.app.utils.JwtUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,7 @@ import java.util.Map;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@Slf4j
 @RestController
 @RequestMapping("/app")
 @Api("APP登录接口")
@@ -57,7 +59,7 @@ public class AppLoginController {
         Map<String, Object> map = new HashMap<>();
         map.put("token", token);
         map.put("expire", jwtUtils.getExpire());
-
+        log.info(token);
         return R.ok(map);
     }
 

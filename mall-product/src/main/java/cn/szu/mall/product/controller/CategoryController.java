@@ -1,16 +1,13 @@
 package cn.szu.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 import cn.szu.mall.product.entity.CategoryEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.szu.mall.product.service.CategoryService;
 import cn.szu.mall.common.utils.PageUtils;
@@ -34,12 +31,12 @@ public class CategoryController {
     /**
      * 列表
      */
-    @RequestMapping("/list")
-    @RequiresPermissions("product:category:list")
+    @RequestMapping("/list/tree")
+    //@RequiresPermissions("product:category:list")
     public R list(@RequestParam Map<String, Object> params){
-        PageUtils page = categoryService.queryPage(params);
+        List<CategoryEntity> categories =  categoryService.listWithTree();
 
-        return R.ok().put("page", page);
+        return R.ok().put("data", categories);
     }
 
 
@@ -57,7 +54,7 @@ public class CategoryController {
     /**
      * 保存
      */
-    @RequestMapping("/save")
+    @PostMapping("/save")
     @RequiresPermissions("product:category:save")
     public R save(@RequestBody CategoryEntity category){
 		categoryService.save(category);
@@ -68,10 +65,10 @@ public class CategoryController {
     /**
      * 修改
      */
-    @RequestMapping("/update")
+    @PostMapping("/update")
     @RequiresPermissions("product:category:update")
     public R update(@RequestBody CategoryEntity category){
-		categoryService.updateById(category);
+		categoryService.updateDetail(category);
 
         return R.ok();
     }
@@ -82,7 +79,7 @@ public class CategoryController {
     @RequestMapping("/delete")
     @RequiresPermissions("product:category:delete")
     public R delete(@RequestBody Long[] catIds){
-		categoryService.removeByIds(Arrays.asList(catIds));
+		categoryService.removeMenuByIdsLogic(Arrays.asList(catIds));
 
         return R.ok();
     }

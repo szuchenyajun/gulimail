@@ -8,11 +8,18 @@ server:
   connection-timeout: 5000ms
   servlet:
     context-path: /renren-fast
-
 spring:
   # 环境 dev|test|prod
   profiles:
     active: dev
+
+  application:
+    name: renren-fast
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.25.228.87:8848
   # jackson时间格式化
   jackson:
     time-zone: GMT+8
